@@ -30,11 +30,16 @@
       height: 100px;
       width: 200px;
       border-radius: 30px;
+      font-size: 30px;
+    }
+    .pr{
+      font-size: 30px;
     }
   </style>
 </head>
-<body>
-  <h1 class="text">Welcom to rps game devloped by Youssef Ayman</h1>
+<body onload="displayScore()">
+  <h1 class="text">Welcom to Rock Paper scissor game devloped by Youssef Ayman</h1>
+  <p class="text pr">challenge your computer</p>
   <div>
     <button class="game-buttons" onclick="Score(game(gameBotPlay(),'rock'))
 ">👊</button>
@@ -45,8 +50,10 @@
 
 ;">🖐️</button>
 </div>
-
-<button class="text rest" onclick="score.Wins=0;score.Losses=0;score.Ties=0">Rest</button>
+<div>
+  <p class="text"id="score123">a</p>
+<button class="text rest" onclick="score.Wins=0;score.Losses=0;score.Ties=0; displayScore()">Rest</button>
+</div>
   <script>
     
     let bot
@@ -87,9 +94,12 @@ function Score(result){
   if(result=='win'){score.Wins+=1}
   else if(result=='lose'){score.Losses+=1}
   else if(result=='tie'){score.Ties+=1}
-   alert('You '+result +'\nWins: '+score.Wins+' ,Losses: '+score.Losses+' ,Ties: '+score.Ties)
+  //  alert('You '+result +'\nWins: '+score.Wins+' ,Losses: '+score.Losses+' ,Ties: '+score.Ties)
+  displayScore()
   console.log(score)
+  
 }
+function displayScore(){document.getElementById('score123').innerHTML= 'Wins: '+score.Wins+' Losses: '+score.Losses+' Ties: '+score.Ties};
   </script>
 
 </body>
