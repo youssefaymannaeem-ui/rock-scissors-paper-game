@@ -7,8 +7,12 @@
 
   <style>
     body{
+      display: flex;
+      flex-direction: column;
+      /* justify-content: center; */
       text-align: center;
       background-color: black;
+
     }
 
     .game-buttons{
@@ -35,25 +39,56 @@
     .pr{
       font-size: 30px;
     }
+    .box{
+      display: inline-block;
+      height: 150px;
+      width: 200px;
+      justify-content: space-between;
+
+    }
+    .hand{
+      display: inline-block;
+      margin-right: 10%;
+    }
+    .r{
+      margin-left: 10%;
+
+      display: inline-block;
+    }
   </style>
 </head>
-<body onload="displayScore()">
+
+<body onload="displayScore();">
   <h1 class="text">Welcom to Rock Paper scissor game devloped by Youssef Ayman</h1>
   <p class="text pr">challenge your computer</p>
   <div>
-    <button class="game-buttons" onclick="Score(game(gameBotPlay(),'rock'))
-">👊</button>
-<button class="game-buttons" onclick="Score(game(gameBotPlay(),'scissor'))
+          <button class="game-buttons" onclick="FG('rock')
+      ">👊</button>
+      <button class="game-buttons" onclick="FG('scissor')
 
-;">✌️</button>
-<button class="game-buttons" onclick="Score(game(gameBotPlay(),'paper'))
+      ;">✌️</button>
+      <button class="game-buttons" onclick="FG('paper')
 
-;">🖐️</button>
-</div>
+      ;">🖐️</button>
+  </div>
 <div>
-  <p class="text"id="score123">a</p>
-<button class="text rest" onclick="score.Wins=0;score.Losses=0;score.Ties=0; displayScore()">Rest</button>
+  <div class='box'>
+    <div class="hand">
+        
+      <p id="y" style="font-size: 30px;"></p>
+      <p style="font-size: 18px;color:white ;font-family: Arial, Helvetica, sans-serif;display: inline-block;">you</p>
+    </div>
+    <div class="r">
+      <p id="b" style="font-size: 30px;"></p>   
+      <p style="font-size: 18px; color:white;font-family: Arial, Helvetica, sans-serif;display: inline-block;">computer</p>   
+    </div>
+  </div>
+  <p class="text"id="score123"></p>
+  <button class="text rest" onclick="score.Wins=0;score.Losses=0;score.Ties=0; displayScore(); localStorage.removeItem('score')">Rest</button>
 </div>
+
+
+</body>
   <script>
     
     let bot
@@ -85,22 +120,35 @@ else {/*alert('it`s tie 👌')*/console.log('game tie s'); return 'tie'}}
 else if(bot=='Scissors'){/*alert('you lose 😭')*/console.log('game lose'); return 'lose'}
 else {/*alert('it`s tie 👌')*/ console.log('game tie paper');return 'tie'}}
 }
-const score= {
+ score=JSON.parse(localStorage.getItem('score'))||{
   Wins: 0,
   Losses: 0,
   Ties: 0
-}
+};
+
 function Score(result){
   if(result=='win'){score.Wins+=1}
   else if(result=='lose'){score.Losses+=1}
   else if(result=='tie'){score.Ties+=1}
   //  alert('You '+result +'\nWins: '+score.Wins+' ,Losses: '+score.Losses+' ,Ties: '+score.Ties)
+  localStorage.setItem('score',JSON.stringify(score))
+  
   displayScore()
   console.log(score)
   
+  
+}
+function FG(playerMove){
+  const bot=gameBotPlay()
+  const r=game(bot,playerMove)
+  Score(r)
+  if(playerMove=='rock'){document.getElementById('y').innerHTML='👊'}
+  else if(playerMove=='paper'){document.getElementById('y').innerHTML='🖐️'}
+  else{document.getElementById('y').innerHTML='✌️'}
+  if(bot=='Rock'){document.getElementById('b').innerHTML='👊'}
+  else if(bot=='paper'){document.getElementById('b').innerHTML='🖐️'}
+  else{document.getElementById('b').innerHTML='✌️'}
 }
 function displayScore(){document.getElementById('score123').innerHTML= 'Wins: '+score.Wins+' Losses: '+score.Losses+' Ties: '+score.Ties};
   </script>
-
-</body>
 </html>
